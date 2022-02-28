@@ -1,9 +1,11 @@
 package main
 
 import (
-	"github.com/inoth/inobot/consumer"
+	"fmt"
+	"os"
+
+	"github.com/inoth/inobot/cmd"
 	"github.com/inoth/inobot/proxy"
-	"github.com/inoth/inobot/script"
 )
 
 func init() {
@@ -11,14 +13,15 @@ func init() {
 }
 
 func main() {
-	script.Init(10)
-	consumer.NsqInit("localhost:4150", "ngx_body_mid", "ngx_body_mid", 10)
-
-	go script.CallScheduler().Run()
-
-	if err := consumer.Run(consumer.GetNsqConsumer()); err != nil {
-		panic(err)
-	}
-
-	<-make(chan struct{})
+	defer func() {
+		if exception := recover(); exception != nil {
+			if err, ok := exception.(error); ok {
+				fmt.Printf("%v\n", err)
+			} else {
+				panic(exception)
+			}
+			os.Exit(1)
+		}
+	}()
+	cmd.Execute()
 }
