@@ -28,4 +28,5 @@ require (
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.10.1
+	github.com/yuin/gopher-lua v0.0.0-20210529063254-f4c35e4016d9
 )

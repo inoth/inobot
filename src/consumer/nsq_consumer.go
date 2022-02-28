@@ -1,8 +1,6 @@
 package consumer
 
 import (
-	"fmt"
-
 	"github.com/nsqio/go-nsq"
 )
 
@@ -28,8 +26,8 @@ func (c *LuaScriptExec) GetSubscription() (string, string) {
 }
 
 func (c *LuaScriptExec) HandleMessage(msg *nsq.Message) error {
-	fmt.Println(c.Topic)
-	fmt.Println(c.Channel)
-	fmt.Println(string(msg.Body))
+	// fmt.Println(c.Topic)
+	// fmt.Println(c.Channel)
+	// fmt.Println(string(msg.Body))
 	return c.Workers.Processing(msg.Body)
 }

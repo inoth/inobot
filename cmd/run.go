@@ -13,6 +13,7 @@ import (
 	"github.com/inoth/inobot/components/queue"
 	"github.com/inoth/inobot/global"
 	"github.com/inoth/inobot/src/consumer"
+	"github.com/inoth/inobot/src/executor"
 	"github.com/spf13/cobra"
 )
 
@@ -56,10 +57,11 @@ func run() {
 	}
 	must(global.Register(
 		cfg.SetDefaultValue(map[string]interface{}{"replica": replica}),
+		&executor.LuaPool{},
 	).Init().Run(
 		(&queue.NsqQueue{Host: config.Cfg.GetString("Nsq.Host")}).
 			AddConsumer(
-				&consumer.LuaScriptExec{Topic: topic, Channel: channel},
+				&consumer.LuaScriptExec{Topic: topic, Channel: channel, Workers: &executor.LuaExecutor{}},
 			)))
 }
 
