@@ -45,9 +45,7 @@ func (nq *NsqQueue) ServeStart() error {
 				if err != nil {
 					panic(err)
 				}
-
 				c.AddHandler(consumer.(nsq.Handler))
-
 				if err := c.ConnectToNSQD(nq.Host); err != nil {
 					panic(err)
 				}
