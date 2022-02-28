@@ -8,7 +8,9 @@ import (
 )
 
 type LuaExecutor struct {
-	// DOTO:使用对象池优化加载脚本速度
+	// TODO:使用对象池优化加载脚本速度
+	// 执行脚本分类型走不同流程
+	// 通用工具库
 }
 
 func Processing(body []byte) error {
