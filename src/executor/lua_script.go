@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
+	luamodule "github.com/inoth/inobot/src/lua_module"
 	lua "github.com/yuin/gopher-lua"
 )
 
@@ -25,9 +26,9 @@ func (LuaExecutor) Processing(body []byte) error {
 	l := luaPool.Get().(*lua.LState)
 	defer luaPool.Put(l)
 	// 调起加载lua脚本执行
-	l.SetGlobal("args", mapToTable(data))
+	l.SetGlobal("args", luamodule.MapToTable(data))
 	// l.DoFile(data.ScriptPath)
-	err := l.DoFile("src/script/test.lua")
+	err := l.DoFile("script/test.lua")
 	if err != nil {
 		fmt.Printf("%v\n", err)
 		return err
