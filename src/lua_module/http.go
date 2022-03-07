@@ -69,10 +69,10 @@ func get(l *lua.LState) int {
 }
 
 func post(l *lua.LState) int {
-	uri := l.ToString(1)
+	url := l.ToString(1)
 	params := l.ToString(2)
 	header := l.ToTable(3)
-	url := fmt.Sprintf("%s?%s", uri, params)
+	logrus.Infof("脚本post请求参数： %v", params)
 	req, err := http.NewRequest("POST", url, bytes.NewBufferString(params))
 	if err != nil {
 		l.Push(lua.LNil)

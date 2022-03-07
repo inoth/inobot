@@ -6,6 +6,7 @@ import (
 
 	"github.com/inoth/inobot/components/config"
 	"github.com/nsqio/go-nsq"
+	"github.com/sirupsen/logrus"
 )
 
 type QueueHandler interface {
@@ -27,8 +28,7 @@ func (nq *NsqQueue) ServeStart() error {
 	replica := config.Cfg.GetInt("replica")
 	for _, consumer := range nq.consumers {
 		for i := 0; i < int(replica); i++ {
-			// 初始化队列消费者
-			fmt.Println("消费者初始化。。。")
+			logrus.Info("消费者初始化...")
 			go func() {
 				defer func() {
 					if exception := recover(); exception != nil {

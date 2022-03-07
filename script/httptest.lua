@@ -5,11 +5,17 @@ local http = require("script.lib.http")
 -- local callback 回调地址，url/topic
 -- local args 请求包含的参数内容
 
-function main()
+-- 加上这玩防止命名不小心重复
+local script_handler = {}
+
+function script_handler.main()
+    -- 打印注入参数内容
+    print(callback)
+
     local http_header = {
         Authorization = "someusertoken"    
     }
-    resp,ok = http.get(args.url,args.body,http_header)
+    local resp,ok = http.get(args.url,args.body,http_header)
     if not ok then
         print("接口请求失败")
     end
@@ -19,11 +25,11 @@ function main()
     end
 
     -- 回调
-    callback(resp)
+    script_handler.callback(resp)
 end
 
-function callback(respData)
-    resp,ok = http.post(callback,respData)
+function script_handler.callback(respData)
+    local resp,ok = http.post(callback,respData)
     if not ok then
         print("回调请求失败")
     end
@@ -33,4 +39,4 @@ function callback(respData)
     end
 end
 
-main()
+script_handler.main()

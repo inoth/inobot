@@ -8,22 +8,14 @@ function http.get(url,params,header)
     local param = util.SerializedGetParams(params)
     print("get 请求参数: " .. param)
     return gohttp.get(url,param,header)
-    -- if not ok then
-    --     print("接口请求失败")
-    --     return nil
-    -- end
-    -- return resp
 end
 
 function http.post(url,params,header)
-    header = header or {}
+    header = header or {} 
     local param = util.SerializedPostParams(params)
+    print("post 请求地址: " .. url)
+    print("post 请求参数: " .. param)
     return gohttp.post(url,param,header)
-    -- if not ok then
-    --     print("接口请求失败")
-    --     return nil
-    -- end
-    -- return resp
 end
 
 return http
