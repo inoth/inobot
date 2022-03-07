@@ -5,8 +5,8 @@ inobot run --topic="test_topic" --replica=1
 
 #### 迭代规划
 * 日志
-    * nsq hook 写入 es
-    * 直接写到文件中，使用filebeat采集
+    * 方案A：nsq hook 写入 es
+    * 方案B：直接写到文件中，使用filebeat采集
 * 脚本工具库
     * http 请求
     * 通用加密 / 解密
