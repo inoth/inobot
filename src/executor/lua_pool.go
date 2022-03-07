@@ -16,11 +16,10 @@ func (LuaPool) Init() error {
 	luaPool = &sync.Pool{
 		New: func() interface{} {
 			L := lua.NewState()
-			// init global function
-			// 装载加密模块
-			// 装载http请求模块
-			fmt.Println("装载luahttp模块。。。")
+			fmt.Println("装载luahttp模块...")
 			L.PreloadModule("gohttp", luamodule.LoadHttpModule)
+			// logrus.Info("装载luansq模块...")
+			// L.PreloadModule("gonsq", luamodule.LoadHttpModule)
 			return L
 		},
 	}

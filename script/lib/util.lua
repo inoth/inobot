@@ -1,4 +1,5 @@
-local json = require("script.package.dkjson")
+-- local json = require("script.lib.dkjson")
+local cjson = require "cjson"
 
 util = {} 
 
@@ -11,8 +12,8 @@ function util.SerializedGetParams(params)
 end
 
 function util.SerializedPostParams(params)
-    local str = json.encode(params, { indent = true })
-    return st
+    local str = cjson.encode(params)
+    return str
 end
 
 return util

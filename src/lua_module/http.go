@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
+	"github.com/sirupsen/logrus"
 	lua "github.com/yuin/gopher-lua"
 )
 
@@ -24,10 +25,11 @@ var httpExports = map[string]lua.LGFunction{
 }
 
 func get(l *lua.LState) int {
-	url := l.ToString(1)
+	uri := l.ToString(1)
 	params := l.ToString(2)
 	header := l.ToTable(3)
-	req, err := http.NewRequest("GET", fmt.Sprintf("%s?%s", url, params), nil)
+	url := fmt.Sprintf("%s?%s", uri, params)
+	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		l.Push(lua.LNil)
 		l.Push(lua.LFalse)
@@ -41,6 +43,7 @@ func get(l *lua.LState) int {
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
+		logrus.Errorf("%s 请求失败：%s", url, err.Error())
 		l.Push(lua.LNil)
 		l.Push(lua.LFalse)
 		return 2
@@ -48,7 +51,7 @@ func get(l *lua.LState) int {
 	defer resp.Body.Close()
 	var data map[string]interface{}
 	buf, err := ioutil.ReadAll(resp.Body)
-	fmt.Println(string(buf))
+	// fmt.Println(string(buf))
 	if err != nil {
 		l.Push(lua.LNil)
 		l.Push(lua.LFalse)
@@ -66,9 +69,10 @@ func get(l *lua.LState) int {
 }
 
 func post(l *lua.LState) int {
-	url := l.ToString(1)
+	uri := l.ToString(1)
 	params := l.ToString(2)
 	header := l.ToTable(3)
+	url := fmt.Sprintf("%s?%s", uri, params)
 	req, err := http.NewRequest("POST", url, bytes.NewBufferString(params))
 	if err != nil {
 		l.Push(lua.LNil)
@@ -83,6 +87,8 @@ func post(l *lua.LState) int {
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
+		logrus.Errorf("%s 请求失败：%s", url, err.Error())
+		logrus.Errorf("%s 请求失败参数：%s", params, err.Error())
 		l.Push(lua.LNil)
 		l.Push(lua.LFalse)
 		return 2

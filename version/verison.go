@@ -1,5 +1,5 @@
 package version
 
 const (
-	Version = "inobot; v0.0.1"
+	Version = "inoth toolbox v0.0.1"
 )

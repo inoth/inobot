@@ -11,8 +11,10 @@ type LuaScriptWorkers interface {
 }
 
 type LuaScriptMessageBody struct {
-	ScriptPath string                 // 脚本地址
-	Args       map[string]interface{} // 脚本参数
+	ScriptPath   string                 // 脚本地址
+	Args         map[string]interface{} // 脚本参数
+	CallBackType string                 // 回调方式，api/topic
+	CallBack     string                 // 回调地址/消息队列话题
 }
 
 type LuaScriptExec struct {
