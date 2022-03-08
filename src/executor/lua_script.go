@@ -33,7 +33,7 @@ func (LuaExecutor) Processing(body []byte) error {
 				"name": "inoth",
 			},
 		},
-		ScriptPath: "script/httptest.lua",
+		ScriptPath: "script/encrypttest.lua",
 	}
 	// TODO:使用连接池优化脚本加载
 	l := luaPool.Get().(*lua.LState)

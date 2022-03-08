@@ -27,8 +27,8 @@ func (nq *NsqQueue) AddConsumer(consumers ...QueueHandler) *NsqQueue {
 func (nq *NsqQueue) ServeStart() error {
 	replica := config.Cfg.GetInt("replica")
 	for _, consumer := range nq.consumers {
+		logrus.Infof("初始化监听队列处理...，开启个数：%d", replica)
 		for i := 0; i < int(replica); i++ {
-			logrus.Info("消费者初始化...")
 			go func() {
 				defer func() {
 					if exception := recover(); exception != nil {

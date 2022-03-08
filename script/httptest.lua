@@ -13,7 +13,7 @@ function script_handler.main()
     print(callback)
 
     local http_header = {
-        Authorization = "someusertoken"    
+        Authorization = "xxxxxx"
     }
     local resp,ok = http.get(args.url,args.body,http_header)
     if not ok then
