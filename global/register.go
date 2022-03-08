@@ -6,6 +6,7 @@ import (
 	"os"
 )
 
+// 单例化，实现从组件注册，而不走全局，直接 append
 // var (
 // model *GlobalRegister
 // 	once  sync.Once

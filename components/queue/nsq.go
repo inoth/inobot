@@ -53,5 +53,6 @@ func (nq *NsqQueue) ServeStart() error {
 		}
 	}
 	<-make(chan struct{})
+	// select{}
 	return nil
 }
