@@ -10,9 +10,9 @@ import (
 	"os"
 
 	"github.com/inoth/inobot/components/config"
+	"github.com/inoth/inobot/components/logger"
 	"github.com/inoth/inobot/components/queue"
 	"github.com/inoth/inobot/global"
-	"github.com/inoth/inobot/logger"
 	"github.com/inoth/inobot/src/consumer"
 	"github.com/inoth/inobot/src/executor"
 	"github.com/spf13/cobra"
